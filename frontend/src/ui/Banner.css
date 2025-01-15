@@ -1,0 +1,62 @@
+.banner{
+    margin: 0 auto clamp(80px, 3vw, 120px) auto;
+    padding-top: clamp(40px, 3vw, 60px);
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    gap: clamp(0px, 1vw, 30px);
+}
+
+.banner__info{
+    color: var(--white-color);
+    background-color: var(--blue-color);
+    padding: calc(min(120px, 38px + (120 - 38) * ((100vw - 786px) / (1440 - 786)))) clamp(20px, 3vw, 60px);
+    border-radius: 32px;
+    min-width: 330px;
+    max-width: 600px;
+}
+
+.banner .info__title{
+    font-family: 'GothamProBold', sans-serif;
+    line-height: 1.35;
+    font-size: clamp(28px, 3vw, 36px);
+    max-width: 470px;
+}
+
+.banner .info__description{
+    margin: 25px 0 40px 0;
+    line-height: 1.4;
+}
+
+.banner .banner__image{
+    border-radius: 24px;
+    width: 500px;
+    min-width: 330px;
+}
+
+.banner .banner__info .wrap__button{
+    max-width: 200px;
+}
+
+@media (max-width: 768px) {
+
+    .banner{
+        flex-direction: column-reverse;
+    }
+
+    .banner .banner__image{
+        width: 600px;
+        min-width: 320px;
+        object-position: 0 0;
+    }
+
+    .banner__info{
+        min-width: 290px;
+        padding: calc(min(110px, 25px + (110 - 25) * ((100vw - 320px) / (1440 - 320)))) clamp(20px, 3vw, 60px);
+    }
+
+    .banner .banner__info .wrap__button{
+        max-width: 100%;
+    }
+
+}

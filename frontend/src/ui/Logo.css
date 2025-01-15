@@ -1,0 +1,9 @@
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo .logo__title{
+    color: var(--black-color);
+}

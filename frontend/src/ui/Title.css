@@ -1,0 +1,8 @@
+.title{
+    font-family: 'GothamProBold', sans-serif;
+    color: var(--blue-color);
+    font-size: clamp(1.5em, 5vw, 4em);
+    text-align: center;
+    padding-top: clamp(1em, 2vh, 3em);
+    line-height: 1.4;
+}

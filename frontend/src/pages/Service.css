@@ -1,0 +1,127 @@
+.service{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: clamp(50px, 3vw, 80px);
+}
+
+.service__article{
+    text-align: center;
+}
+
+.service .article__title{
+    font-family: 'GothamProBold', sans-serif;
+    font-size: clamp(28px, 3vw, 36px);
+}
+
+.service .article__description{
+    line-height: 1.35;
+    margin-top: clamp(15px, 3vw, 20px);
+    font-size: clamp(17px, 3vw, 18px);
+    color: var(--gray-color);
+}
+
+.service .durations{
+    margin-top: clamp(40px, 3vw, 50px);
+    display: flex;
+    justify-content: center;
+}
+
+.service .durations__item{
+    cursor: pointer;
+    padding: 1.2rem clamp(20px, 3vw, 40px);
+    font-size: clamp(17px, 3vw, 18px);
+    border: 1px solid var(--blue-color);
+    transition: all 0.35s ease;
+}
+
+.service .durations__item:first-child{
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.service .durations__item:last-child{
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.service .durations__item--active{
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
+
+.service__content{
+    margin: clamp(30px, 3vw, 50px) 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.service .one__duration{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.service .one__duration .duration__value{
+    color: var(--blue-color);
+}
+
+.service .auth__block{
+    width: clamp(355px, 70vw, 580px);
+}
+
+.service .auth__block .block__article{
+    margin-bottom: 20px;
+}
+
+.service .auth__block .block__card{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.service .auth__block .block__card .label{
+    width: 48%;
+}
+
+.service .auth__block .we_dont_honestly{
+    margin-top: 10px;
+    color: #7F7F7F;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.service .modal__success .success__title{
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-family: 'GothamProBold', sans-serif;
+}
+
+.service .modal__success .success__info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+@media (max-width: 525px) {
+
+    .wrapper .service .auth__block{
+        height: 100vh;
+        width: 100%;
+        top: 50vh;
+    }
+
+    .service .auth__block .block__card{
+        flex-direction: column;
+    }
+
+    .service .auth__block .block__card .label{
+        width: 100%;
+    }
+
+}

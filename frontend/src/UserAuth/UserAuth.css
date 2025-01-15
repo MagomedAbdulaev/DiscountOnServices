@@ -1,0 +1,233 @@
+.auth__block{
+    background-color: var(--white-color);
+    box-shadow: 0 4px 24px 0 #D5D8DD33;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    padding: clamp(15px, 4vw, 40px);
+    border-radius: 32px;
+    width: clamp(355px, 70vw, 540px);
+}
+
+.auth__block .block__article{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.auth__block .block__title{
+    font-family: 'GothamProBold', sans-serif;
+    font-size: clamp(22px, 4vw, 32px);
+}
+
+.auth__block .block__close{
+    cursor: pointer;
+    position: relative;
+    background: #1717171A;
+    padding: 16px;
+    border-radius: 50%;
+}
+
+.auth__block .block__close::after,
+.auth__block .block__close::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 14px;
+    height: 2px;
+    background-color: var(--gray-color);
+}
+
+.auth__block .block__close::after{
+    rotate: 45deg;
+}
+
+.auth__block .block__close::before{
+    rotate: -45deg;
+}
+
+.auth__block .block__inscription{
+    margin: 15px 0 40px 0;
+    font-size: clamp(14px, 1vw, 16px);
+}
+
+.auth__block .block__inscription .inscription__link{
+    cursor: pointer;
+    color: var(--blue-color);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+}
+
+.auth__block .label{
+    position: relative;
+    display: block;
+    margin-bottom: 30px;
+    color: var(--blue-dark-color);
+}
+
+.auth__block .label .label__content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label .label__input{
+    padding: 16px 34px 16px 24px;
+    border-radius: 12px;
+    background-color: #F1F4F8;
+}
+
+.label .label__input::placeholder{
+    color: var(--gray-color);
+}
+
+.label .visible_password{
+    position: absolute;
+    top: 42px;
+    right: 10px;
+}
+
+.label .visible_password__image{
+    width: 20px;
+    height: 20px;
+}
+
+.auth__block .block__item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.auth__block .block__item .forgot_password{
+    cursor: pointer;
+    font-family: 'GothamProMedium', sans-serif;
+}
+
+.auth__block .label__checkbox{
+    position: relative;
+    user-select: none;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.auth__block .label__checkbox:hover .checkbox{
+    border-color: #333;
+}
+
+.auth__block .label__checkbox .checkbox__input:checked ~ .checkbox{
+    background-color: var(--blue-color);
+    border-color: var(--blue-color);
+}
+
+.auth__block .label__checkbox .checkbox__input{
+    position: absolute;
+    top: 1px;
+}
+
+.auth__block .label__checkbox .checkbox{
+    padding: 2px;
+    position: relative;
+    left: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 20px;
+    background-color: var(--white-color);
+    border-radius: 4px;
+    border: 1px solid #CECBDF;
+}
+
+.auth__block .label__checkbox .checkbox__text{
+    font-size: clamp(13px, 1vw, 16px);
+}
+
+.auth__block .label__checkbox .checkbox__text .text__link{
+    color: var(--blue-color);
+    line-height: 1.35;
+}
+
+.auth__block .checkbox__error{
+    position: absolute;
+    bottom: -25px;
+    font-size: 14px;
+    color: var(--error-color);
+}
+
+.input_error{
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--error-color);
+}
+
+.label:has(.input_error) .label__input{
+    outline: 1px solid var(--error-color);
+}
+
+.label:has(.input_error)::after{
+    position: absolute;
+    right: 10px;
+    top: 42px;
+    content: '!';
+    width: 20px;
+    height: 20px;
+    color: var(--white-color);
+    border-radius: 50%;
+    text-align: center;
+    font-family: 'GothamProMedium', sans-serif;
+    background-color: var(--error-color);
+}
+
+.auth__block .block__item--login .wrap__button{
+    width: 190px;
+}
+
+.captcha{
+    position: relative;
+    top: -10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 475px) {
+
+    html{
+        overflow-x: hidden;
+    }
+
+    .wrapper .header:has(.auth__block) .overlay{
+        display: none;
+    }
+
+    html .wrapper .auth__block{
+        overflow-y: auto;
+        width: 97.7vw;
+        margin-left: -1px;
+        padding: 40px 15px 10vh 15px;
+        height: 100vh;
+        top: 57.8vh;
+        border-radius: 0;
+    }
+
+    .auth__block .block__item{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .auth__block .button{
+        max-width: 100% !important;
+    }
+
+    .auth__block .block__item--login .wrap__button{
+        width: 100%;
+    }
+
+}

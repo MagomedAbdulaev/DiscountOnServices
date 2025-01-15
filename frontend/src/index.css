@@ -1,0 +1,97 @@
+@font-face {
+    font-family: "GothamProRegular";
+    src: local("GothamProRegular"),
+    url("/fonts/GothamPro/GothamPro.woff2") format("woff2"),
+    url("/fonts/GothamPro/GothamPro.woff") format("woff"),
+    url("/fonts/GothamPro/GothamPro.eot") format("eot"),
+    url("/fonts/GothamPro/GothamPro.ttf") format("ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "GothamProMedium";
+    src: local("GothamProMedium"),
+    url("/fonts/GothamPro/GothamPro-Medium.woff2") format("woff2"),
+    url("/fonts/GothamPro/GothamPro-Medium.woff") format("woff"),
+    url("/fonts/GothamPro/GothamPro-Medium.eot") format("eot"),
+    url("/fonts/GothamPro/GothamPro-Medium.ttf") format("ttf");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "GothamProBold";
+    src: local("GothamProBold"),
+    url("/fonts/GothamPro/GothamPro-Bold.woff2") format("woff2"),
+    url("/fonts/GothamPro/GothamPro-Bold.woff") format("woff"),
+    url("/fonts/GothamPro/GothamPro-Bold.eot") format("eot"),
+    url("/fonts/GothamPro/GothamPro-Bold.ttf") format("ttf");
+    font-weight: 700;
+}
+
+html{
+    scrollbar-gutter: stable;
+    font-family: 'GothamProRegular', sans-serif;
+}
+
+.wrapper{
+    overflow: hidden;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.overlay{
+    display: none;
+    position: absolute;
+    z-index: 70;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(15px);
+}
+
+.header:has(.auth__block) .overlay{
+    display: block;
+}
+
+.banner:has(.auth__block) .overlay{
+    display: block;
+}
+
+.service:has(.auth__block) .overlay{
+    display: block;
+}
+
+html:has(.auth__block),
+html:has(.header__modal--active){
+    overflow: hidden;
+}
+
+.header:has(.auth__block) .overlay{
+    display: block;
+}
+
+.main{
+    padding: 0 20px;
+    min-height: 70vh;
+    background-color: var(--blue-background);
+}
+
+.label__input:focus{
+    outline: 1px solid var(--blue-color);
+}
+
+:root{
+    --blue-color: #1749B3;
+    --blue-light-color: #4B84FD;
+    --black-color: #171717;
+    --blue-dark-color: #070033;
+    --blue-background: #ECF3FB;
+    --gray-color: #333;
+    --grey-color: #9C99AD;
+    --gray-light-color: #D3D3D3;
+    --white-color: #fff;
+    --error-color: #FD4646;
+}
