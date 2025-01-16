@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import HostBackend, {getCookie} from "../main.jsx";
 import axios from "axios";
@@ -9,6 +9,7 @@ import './Service.css';
 import Input from "../ui/Input.jsx";
 import Button from "../ui/Button.jsx";
 import SuccessImage from "../assets/icons/successfull.svg";
+import Message from "../ui/Message.jsx";
 
 
 function Service(props) {
@@ -26,6 +27,9 @@ function Service(props) {
     const [cvcNumberError, setCvcNumberError] = useState('');
     const [currentDuration, setCurrentDuration] = useState(null); // Начальное значение null
     const [pricePlan, setPricePlan] = useState(false);
+    const [messageOpen, setMessageOpen] = useState(false);
+
+    const timerId = useRef(null); // Храним идентификатор таймера
 
     const handleModalOpen = (price) => {
         window.scrollTo({ top: 0 });
@@ -34,6 +38,7 @@ function Service(props) {
     }
 
     const handleSubmit = () => {
+        // Проверка на валидность номера карты
         if (cardNumber.length !== 16 || !(/^[+\d]+$/.test(cardNumber))) {
             setCardNumberError('Card number must be 16 digits and contain only numbers');
             return;
@@ -41,6 +46,7 @@ function Service(props) {
             setCardNumberError('');
         }
 
+        // Проверка на валидность срока действия карты
         if (!/^\d{2}\/\d{2}$/.test(expirationDate)) {
             setExpirationDateError('Expiration date must be in MM/ГГ format');
             return;
@@ -48,6 +54,7 @@ function Service(props) {
             setExpirationDateError('');
         }
 
+        // Проверка на валидность CVC
         if (cvcNumber.length !== 3 || !(/^\d{3}$/.test(cvcNumber))) {
             setCvcNumberError('CVC must be 3 digits');
             return;
@@ -55,45 +62,60 @@ function Service(props) {
             setCvcNumberError('');
         }
 
-        axios.post(HostBackend + 'tokenize_card/', {
-            cardNumber,
-            expirationDate,
-            cvcNumber,
-            pricePlan,
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken'),
-            },
-            withCredentials: true
-        })
-        .then((response) => {
-            if (response.data.success) {
-                window.location.href = response.data.confirmation_url; // Перенаправляем на URL подтверждения
-                setModalOpen(false);
-                setSuccessOpen(true);
-            } else {
-                setCvcNumberError(response.data.error || 'Something went wrong');
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            setCvcNumberError('Error occurred during payment');
-        });
+        // Проверка авторизации
+        axios
+            .get(HostBackend + 'auth_status/', { withCredentials: true })
+            .then((response) => {
+                if (!response.data.authenticated) {
+                    setModalOpen(false);
+                    setMessageOpen(true);
+                    // Если таймер уже запущен, сбрасываем его
+                    if (timerId.current) {
+                        clearTimeout(timerId.current);
+                    }
 
-        // axios.get(HostBackend + 'check_payment/', {
-        //     params: {
-        //         cardNumber, expirationDate, cvcNumber, pricePlan
-        //     }
-        // })
-        // .then(response => {
-        //     setModalOpen(false);
-        //     setSuccessOpen(true);
-        // })
-        // .catch(error => {
-        //     console.error("Error fetching services:", error);
-        // });
+                    // Запускаем новый таймер
+                    timerId.current = setTimeout(() => {
+                        setMessageOpen(false);
+                    }, 4000);
+                    return; // Останавливаем выполнение
+                }
 
+                // Если авторизация прошла, выполняем следующий запрос
+                axios
+                    .post(
+                        HostBackend + 'tokenize_card/',
+                        {
+                            cardNumber,
+                            expirationDate,
+                            cvcNumber,
+                            pricePlan,
+                        },
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken'),
+                            },
+                            withCredentials: true,
+                        }
+                    )
+                    .then((response) => {
+                        if (response.data.success) {
+                            window.location.href = response.data.confirmation_url; // Перенаправление на URL подтверждения
+                            setModalOpen(false);
+                            setSuccessOpen(true);
+                        } else {
+                            setCvcNumberError(response.data.error || 'Something went wrong');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        setCvcNumberError('Error occurred during payment');
+                    });
+            })
+            .catch((error) => {
+                console.error('Error during authentication check:', error);
+            });
     };
 
     const handleCardNumberChange = (e) => {
@@ -294,6 +316,7 @@ function Service(props) {
 
                 </div>
             )}
+            <Message name='To pay you need to log in' message_open={messageOpen}/>
         </div>
     );
 }

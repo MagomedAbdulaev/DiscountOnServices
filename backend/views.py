@@ -291,29 +291,6 @@ def new_password(request):
         return JsonResponse({'status': 'error', 'error_text': 'No such email found'})
 
 
-# def check_payment(request):
-#
-#
-#
-#     payment = Payment.create({
-#         "amount": {
-#             "value": request.GET.get('pricePlan'),
-#             "currency": "RUB"
-#         },
-#         "confirmation": {
-#             "type": "redirect",
-#             "return_url": "http://localhost:5173/"
-#         },
-#         "capture": True,
-#         "description": "Это тестовый магазин, деньги не будут списаны"
-#     }, uuid.uuid4())
-#
-#     subscription = Subscription.objects.create(plan_id=1, service_id=1)
-#     subscription.save()
-#
-#     return HttpResponseRedirect(payment.confirmation.confirmation_url)
-
-
 def tokenize_card(request):
 
     if request.method == 'POST':
